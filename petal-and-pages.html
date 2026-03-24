@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Petal & Pages</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Baloo+2:wght@400;600;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #FBEAF0;
+    --pink-mid: #F4C0D1;
+    --pink-strong: #D4537E;
+    --mint: #E1F5EE;
+    --mint-mid: #9FE1CB;
+    --mint-strong: #1D9E75;
+    --peach: #FAEEDA;
+    --peach-mid: #FAC775;
+    --peach-strong: #BA7517;
+    --lavender: #EEEDFE;
+    --lavender-mid: #AFA9EC;
+    --lavender-strong: #534AB7;
+    --dark: #2C2C2A;
+    --dark-mid: #5F5E5A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Baloo 2', cursive;
+    background-color: #FFF9FB;
+    background-image:
+      radial-gradient(circle at 15% 20%, #FBEAF0 0%, transparent 35%),
+      radial-gradient(circle at 85% 10%, #E1F5EE 0%, transparent 30%),
+      radial-gradient(circle at 70% 70%, #EEEDFE 0%, transparent 35%),
+      radial-gradient(circle at 10% 80%, #FAEEDA 0%, transparent 30%);
+    color: var(--dark);
+    min-height: 100vh;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='5' fill='%23D4537E' opacity='0.7'/%3E%3C/svg%3E") 12 12, auto;
+  }
+
+  /* Floating sticker doodles */
+  .doodle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.18;
+    font-size: 48px;
+    animation: floatDoodle 6s ease-in-out infinite;
+  }
+  .doodle:nth-child(1) { top: 5%; left: 2%; animation-delay: 0s; }
+  .doodle:nth-child(2) { top: 20%; right: 3%; animation-delay: 1.5s; font-size: 36px; }
+  .doodle:nth-child(3) { top: 50%; left: 1%; animation-delay: 3s; font-size: 40px; }
+  .doodle:nth-child(4) { top: 75%; right: 2%; animation-delay: 0.7s; }
+  .doodle:nth-child(5) { bottom: 10%; left: 5%; animation-delay: 2s; font-size: 32px; }
+
+  @keyframes floatDoodle {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-14px) rotate(5deg); }
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,249,251,0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 2.5px dashed var(--pink-mid);
+    padding: 14px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: 'Caveat', cursive;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--pink-strong);
+    text-decoration: none;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-logo span { font-size: 26px; }
+
+  .nav-links {
+    display: flex;
+    gap: 6px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Kalam', cursive;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 6px 16px;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    color: var(--dark-mid);
+    transition: all 0.2s;
+  }
+  .nav-links a:hover {
+    background: var(--pink);
+    border-color: var(--pink-mid);
+    color: var(--pink-strong);
+    transform: rotate(-2deg) scale(1.05);
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 80px 20px 60px;
+    overflow: hidden;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: var(--peach);
+    border: 2.5px solid var(--peach-mid);
+    border-radius: 999px;
+    padding: 6px 20px;
+    font-family: 'Kalam', cursive;
+    font-size: 14px;
+    color: var(--peach-strong);
+    margin-bottom: 20px;
+    animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+
+  .hero h1 {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(62px, 10vw, 110px);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--pink-strong);
+    letter-spacing: -1px;
+    animation: popIn 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.1s both;
+  }
+
+  .hero-sub {
+    font-family: 'Kalam', cursive;
+    font-size: 20px;
+    color: var(--dark-mid);
+    margin: 16px auto 32px;
+    max-width: 520px;
+    line-height: 1.6;
+    animation: popIn 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.2s both;
+  }
+
+  .hero-stickers {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+    animation: popIn 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.3s both;
+  }
+
+  .sticker {
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 999px;
+    font-family: 'Kalam', cursive;
+    font-size: 14px;
+    font-weight: 700;
+    border: 2.5px solid;
+    transition: transform 0.2s;
+  }
+  .sticker:hover { transform: scale(1.08) rotate(3deg); }
+  .sticker-pink { background: var(--pink); border-color: var(--pink-mid); color: var(--pink-strong); }
+  .sticker-mint { background: var(--mint); border-color: var(--mint-mid); color: var(--mint-strong); }
+  .sticker-lavender { background: var(--lavender); border-color: var(--lavender-mid); color: var(--lavender-strong); }
+  .sticker-peach { background: var(--peach); border-color: var(--peach-mid); color: var(--peach-strong); }
+
+  .hero-cta {
+    display: inline-block;
+    background: var(--pink-strong);
+    color: #fff;
+    font-family: 'Kalam', cursive;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 14px 36px;
+    border-radius: 999px;
+    text-decoration: none;
+    border: 3px solid var(--dark);
+    box-shadow: 4px 4px 0 var(--dark);
+    transition: all 0.15s;
+    animation: popIn 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.4s both;
+  }
+  .hero-cta:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--dark);
+  }
+
+  /* Wiggle divider */
+  .wiggle {
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    margin: -2px 0;
+  }
+  .wiggle svg { display: block; width: 100%; }
+
+  /* SECTIONS */
+  section { position: relative; z-index: 1; padding: 64px 40px; }
+
+  .section-label {
+    font-family: 'Caveat', cursive;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(38px, 5vw, 56px);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+
+  /* ABOUT */
+  .about-section {
+    background: var(--mint);
+    border-top: 3px dashed var(--mint-mid);
+    border-bottom: 3px dashed var(--mint-mid);
+  }
+
+  .about-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .about-image-wrapper {
+    position: relative;
+  }
+
+  .about-photo {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%;
+    background: linear-gradient(135deg, var(--pink-mid), var(--lavender-mid));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+    border: 4px solid white;
+    box-shadow: 6px 8px 0 var(--mint-mid);
+    animation: morphBlob 8s ease-in-out infinite;
+  }
+
+  @keyframes morphBlob {
+    0%, 100% { border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%; }
+    33% { border-radius: 55% 45% 40% 60% / 45% 60% 40% 55%; }
+    66% { border-radius: 60% 40% 60% 40% / 55% 40% 60% 45%; }
+  }
+
+  .about-sticker-float {
+    position: absolute;
+    font-size: 28px;
+    animation: floatDoodle 4s ease-in-out infinite;
+  }
+  .about-sticker-float:nth-child(2) { top: -10px; right: -10px; animation-delay: 0.5s; }
+  .about-sticker-float:nth-child(3) { bottom: 10px; left: -15px; animation-delay: 1.5s; font-size: 22px; }
+
+  .about-text .section-label { color: var(--mint-strong); }
+  .about-text .section-title { color: var(--dark); }
+
+  .about-text p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--dark-mid);
+    margin-bottom: 20px;
+    font-family: 'Baloo 2', cursive;
+  }
+
+  .about-facts {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  /* POSTS */
+  .posts-section {
+    background: #FFF9FB;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .posts-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .posts-header .section-label { color: var(--pink-strong); }
+  .posts-header .section-title { color: var(--dark); }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 28px;
+  }
+
+  .post-card {
+    background: #fff;
+    border-radius: 20px;
+    border: 2.5px solid var(--pink-mid);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 4px 4px 0 var(--pink-mid);
+    cursor: pointer;
+  }
+  .post-card:hover {
+    transform: translate(-3px, -3px) rotate(-1deg);
+    box-shadow: 7px 7px 0 var(--pink-mid);
+  }
+  .post-card:nth-child(2) { border-color: var(--mint-mid); box-shadow: 4px 4px 0 var(--mint-mid); }
+  .post-card:nth-child(2):hover { box-shadow: 7px 7px 0 var(--mint-mid); }
+  .post-card:nth-child(3) { border-color: var(--lavender-mid); box-shadow: 4px 4px 0 var(--lavender-mid); }
+  .post-card:nth-child(3):hover { box-shadow: 7px 7px 0 var(--lavender-mid); }
+  .post-card:nth-child(4) { border-color: var(--peach-mid); box-shadow: 4px 4px 0 var(--peach-mid); }
+  .post-card:nth-child(4):hover { box-shadow: 7px 7px 0 var(--peach-mid); }
+
+  .post-thumb {
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+  }
+  .post-card:nth-child(1) .post-thumb { background: var(--pink); }
+  .post-card:nth-child(2) .post-thumb { background: var(--mint); }
+  .post-card:nth-child(3) .post-thumb { background: var(--lavender); }
+  .post-card:nth-child(4) .post-thumb { background: var(--peach); }
+
+  .post-body { padding: 18px 20px 22px; }
+
+  .post-tag {
+    font-family: 'Kalam', cursive;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 999px;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .post-card:nth-child(1) .post-tag { background: var(--pink); color: var(--pink-strong); }
+  .post-card:nth-child(2) .post-tag { background: var(--mint); color: var(--mint-strong); }
+  .post-card:nth-child(3) .post-tag { background: var(--lavender); color: var(--lavender-strong); }
+  .post-card:nth-child(4) .post-tag { background: var(--peach); color: var(--peach-strong); }
+
+  .post-title {
+    font-family: 'Caveat', cursive;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .post-excerpt {
+    font-size: 14px;
+    color: var(--dark-mid);
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+
+  .post-meta {
+    font-family: 'Kalam', cursive;
+    font-size: 13px;
+    color: var(--dark-mid);
+    display: flex;
+    gap: 12px;
+  }
+
+  /* SERVICES */
+  .services-section {
+    background: var(--lavender);
+    border-top: 3px dashed var(--lavender-mid);
+    border-bottom: 3px dashed var(--lavender-mid);
+  }
+
+  .services-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .services-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .services-header .section-label { color: var(--lavender-strong); }
+  .services-header .section-title { color: var(--dark); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 24px;
+  }
+
+  .service-card {
+    background: #fff;
+    border-radius: 20px;
+    border: 2.5px solid var(--lavender-mid);
+    padding: 30px 24px;
+    text-align: center;
+    transition: transform 0.2s;
+    box-shadow: 4px 4px 0 var(--lavender-mid);
+  }
+  .service-card:hover { transform: translateY(-5px) rotate(1deg); }
+
+  .service-icon {
+    font-size: 44px;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .service-title {
+    font-family: 'Caveat', cursive;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 8px;
+  }
+
+  .service-desc {
+    font-size: 14px;
+    color: var(--dark-mid);
+    line-height: 1.7;
+  }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--peach);
+    border-top: 3px dashed var(--peach-mid);
+    text-align: center;
+  }
+
+  .contact-inner {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .contact-inner .section-label { color: var(--peach-strong); }
+  .contact-inner .section-title { color: var(--dark); margin-bottom: 14px; }
+
+  .contact-inner p {
+    font-size: 16px;
+    color: var(--dark-mid);
+    line-height: 1.8;
+    margin-bottom: 36px;
+    font-family: 'Kalam', cursive;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: left;
+  }
+
+  .form-group label {
+    font-family: 'Kalam', cursive;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--dark);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2.5px solid var(--peach-mid);
+    border-radius: 14px;
+    font-family: 'Baloo 2', cursive;
+    font-size: 15px;
+    background: #fff;
+    color: var(--dark);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--pink-strong);
+    box-shadow: 3px 3px 0 var(--pink-mid);
+  }
+
+  .form-group textarea { height: 120px; resize: none; }
+
+  .form-submit {
+    background: var(--pink-strong);
+    color: #fff;
+    font-family: 'Kalam', cursive;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 14px;
+    border-radius: 999px;
+    border: 3px solid var(--dark);
+    box-shadow: 4px 4px 0 var(--dark);
+    cursor: pointer;
+    transition: all 0.15s;
+    width: 100%;
+  }
+  .form-submit:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--dark);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    color: #fff;
+    text-align: center;
+    padding: 40px 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-logo {
+    font-family: 'Caveat', cursive;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--pink-mid);
+    margin-bottom: 12px;
+  }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    list-style: none;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    font-family: 'Kalam', cursive;
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--pink-mid); }
+
+  .footer-copy {
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+    font-family: 'Kalam', cursive;
+  }
+
+  .social-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .social-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .social-btn:hover {
+    border-color: var(--pink-mid);
+    transform: scale(1.15) rotate(5deg);
+  }
+
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.85) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    nav { padding: 12px 20px; }
+    section { padding: 48px 20px; }
+    .about-inner { grid-template-columns: 1fr; gap: 32px; }
+    .about-photo { max-width: 240px; margin: 0 auto; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Background doodles -->
+<div class="doodle">🌸</div>
+<div class="doodle">🎀</div>
+<div class="doodle">✨</div>
+<div class="doodle">🌷</div>
+<div class="doodle">🍬</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">🌸 <span>Petal & Pages</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#posts">Posts</a></li>
+    <li><a href="#services">Work with Me</a></li>
+    <li><a href="#contact">Say Hello</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">✨ A lifestyle & personal blog</div>
+  <h1>Petal & Pages 🌸</h1>
+  <p class="hero-sub">Life is beautiful, messy, and magical — and this is where I write all about it 💕</p>
+  <div class="hero-stickers">
+    <span class="sticker sticker-pink">🌸 lifestyle</span>
+    <span class="sticker sticker-mint">🌿 wellness</span>
+    <span class="sticker sticker-lavender">✨ personal stories</span>
+    <span class="sticker sticker-peach">🍵 cozy vibes</span>
+  </div>
+  <a href="#posts" class="hero-cta">Read the blog →</a>
+</section>
+
+<!-- Wiggle divider -->
+<div class="wiggle">
+  <svg viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,20 C120,40 240,0 360,20 C480,40 600,0 720,20 C840,40 960,0 1080,20 C1200,40 1320,0 1440,20 L1440,40 L0,40 Z" fill="#E1F5EE"/>
+  </svg>
+</div>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-inner">
+    <div class="about-image-wrapper">
+      <div class="about-photo">🌷</div>
+      <span class="about-sticker-float" style="top:-10px;right:-10px;">🎀</span>
+      <span class="about-sticker-float" style="bottom:10px;left:-15px;">✨</span>
+    </div>
+    <div class="about-text">
+      <span class="section-label">🌿 About me</span>
+      <h2 class="section-title">Hey there, I'm so glad you're here! 👋</h2>
+      <p>Welcome to my little corner of the internet! I'm a dreamer, a journaler, and a lover of all things cozy. Petal & Pages is where I share my honest thoughts on life, little moments that matter, and everything in between.</p>
+      <p>From morning routines to late-night musings — if it made me feel something, it ends up here. Pull up a chair (and maybe a cup of tea ☕).</p>
+      <div class="about-facts">
+        <span class="sticker sticker-pink">📍 Living my best life</span>
+        <span class="sticker sticker-mint">📚 Always reading</span>
+        <span class="sticker sticker-peach">🌙 Night owl</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wiggle divider -->
+<div class="wiggle">
+  <svg viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,20 C120,0 240,40 360,20 C480,0 600,40 720,20 C840,0 960,40 1080,20 C1200,0 1320,40 1440,20 L1440,40 L0,40 Z" fill="#FFF9FB"/>
+  </svg>
+</div>
+
+<!-- POSTS -->
+<section id="posts">
+  <div class="posts-section">
+    <div class="posts-header">
+      <span class="section-label">📖 Fresh off the pages</span>
+      <h2 class="section-title">Latest Posts 💌</h2>
+    </div>
+    <div class="posts-grid">
+      <div class="post-card">
+        <div class="post-thumb">🌅</div>
+        <div class="post-body">
+          <span class="post-tag">🌸 Life</span>
+          <h3 class="post-title">My Morning Ritual That Changed Everything</h3>
+          <p class="post-excerpt">How a simple 20-minute morning routine turned my chaotic days into something I actually look forward to...</p>
+          <div class="post-meta">
+            <span>🗓 March 20, 2025</span>
+            <span>☕ 4 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="post-card">
+        <div class="post-thumb">🌿</div>
+        <div class="post-body">
+          <span class="post-tag">🌿 Wellness</span>
+          <h3 class="post-title">Learning to Slow Down (It's Harder Than It Sounds)</h3>
+          <p class="post-excerpt">We live in a go-go-go world, but what happens when you actually stop? Here's what I found out...</p>
+          <div class="post-meta">
+            <span>🗓 March 14, 2025</span>
+            <span>☕ 6 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="post-card">
+        <div class="post-thumb">📚</div>
+        <div class="post-body">
+          <span class="post-tag">✨ Reads</span>
+          <h3 class="post-title">5 Books That Genuinely Made Me a Calmer Person</h3>
+          <p class="post-excerpt">Not self-help in the cringey way — just five books that quietly rewired how I think about life...</p>
+          <div class="post-meta">
+            <span>🗓 March 8, 2025</span>
+            <span>☕ 5 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="post-card">
+        <div class="post-thumb">🍵</div>
+        <div class="post-body">
+          <span class="post-tag">🍵 Cozy</span>
+          <h3 class="post-title">A Love Letter to Rainy Afternoons</h3>
+          <p class="post-excerpt">Rain on the window, tea going cold, a blanket and a good book. Some days are just perfectly designed...</p>
+          <div class="post-meta">
+            <span>🗓 Feb 28, 2025</span>
+            <span>☕ 3 min read</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WIGGLE -->
+<div class="wiggle">
+  <svg viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,20 C120,40 240,0 360,20 C480,40 600,0 720,20 C840,40 960,0 1080,20 C1200,40 1320,0 1440,20 L1440,40 L0,40 Z" fill="#EEEDFE"/>
+  </svg>
+</div>
+
+<!-- SERVICES / WORK WITH ME -->
+<section class="services-section" id="services">
+  <div class="services-inner">
+    <div class="services-header">
+      <span class="section-label">💼 Work with me</span>
+      <h2 class="section-title">Let's Create Something Lovely ✨</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">✍️</span>
+        <h3 class="service-title">Guest Posts</h3>
+        <p class="service-desc">Want to share your story here? I love collaborating with fellow lifestyle writers and creatives.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">📸</span>
+        <h3 class="service-title">Brand Collabs</h3>
+        <p class="service-desc">Partnering with brands that align with my values — authentic, thoughtful, and genuinely good stuff.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">💌</span>
+        <h3 class="service-title">Newsletter Shoutouts</h3>
+        <p class="service-desc">Reach my lovely community of readers through a dedicated mention in my weekly newsletter.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🎙️</span>
+        <h3 class="service-title">Podcast Features</h3>
+        <p class="service-desc">Have a story worth telling? I'd love to have a conversation that inspires others.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WIGGLE -->
+<div class="wiggle">
+  <svg viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,20 C120,0 240,40 360,20 C480,0 600,40 720,20 C840,0 960,40 1080,20 C1200,0 1320,40 1440,20 L1440,40 L0,40 Z" fill="#FAEEDA"/>
+  </svg>
+</div>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <span class="section-label">💌 Say hello</span>
+    <h2 class="section-title">Drop Me a Note 🌸</h2>
+    <p>Whether it's a collab idea, a question, or just to say hi — my inbox is always open and I genuinely love hearing from you!</p>
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <div class="form-group">
+        <label>Your name 🌷</label>
+        <input type="text" placeholder="What shall I call you?">
+      </div>
+      <div class="form-group">
+        <label>Your email 📬</label>
+        <input type="email" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label>Your message ✨</label>
+        <textarea placeholder="Tell me everything... or just say hi!"></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send with love 💌</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">🌸 Petal & Pages</div>
+  <div class="social-row">
+    <a class="social-btn" href="#" title="Instagram">📸</a>
+    <a class="social-btn" href="#" title="Pinterest">📌</a>
+    <a class="social-btn" href="#" title="Twitter/X">🐦</a>
+    <a class="social-btn" href="#" title="Newsletter">💌</a>
+  </div>
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#posts">Blog</a></li>
+    <li><a href="#services">Work with Me</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <p class="footer-copy">Made with 🌸 and a lot of tea · © 2025 Petal & Pages</p>
+</footer>
+
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-submit');
+    btn.textContent = '💌 Message sent!';
+    btn.style.background = '#1D9E75';
+    setTimeout(() => {
+      btn.textContent = 'Send with love 💌';
+      btn.style.background = '';
+      e.target.reset();
+    }, 3000);
+  }
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+
+  // Stagger post cards on scroll
+  const cards = document.querySelectorAll('.post-card, .service-card');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        entry.target.style.animation = `popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) ${i * 0.1}s both`;
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  cards.forEach(c => obs.observe(c));
+</script>
+</body>
+</html>
